@@ -1,0 +1,92 @@
+/* Text Gradient */
+.text-gradient {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Dropdown Scale Animation */
+@keyframes dropdown-scale {
+  from {
+    transform: scale(1) rotateY(0deg) rotateX(0deg);
+  }
+  to {
+    transform: scale(1.5) rotateY(360deg) rotateX(36deg);
+  }
+}
+
+/* Focus Beat Animation */
+@keyframes dropdown-focus-beat {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
+/* Styling for the checkbox */
+input[type="checkbox"][role="dropdown"] {
+  appearance: none; /* Remove native styling */
+  -webkit-appearance: none; /* Webkit support */
+  width: 24px; /* Slightly bigger for better accessibility */
+  height: 24px;
+  border: 2px solid #555;
+  border-radius: 6px;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.3s ease; /* Smooth transition */
+}
+
+/* Checked state */
+input[type="checkbox"][role="dropdown"]:checked::after {
+  content: "✔";
+  color: transparent;
+  font-size: 16px;
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  animation: dropdown-scale 1s ease-in-out 2 forwards alternate;
+  background: conic-gradient(from 0deg, rgb(255, 255, 255), blue);
+  background-clip: text;
+  -webkit-background-clip: text;
+  transform: scale(1.5); /* Scaling effect */
+}
+
+/* Hover state */
+input[type="checkbox"][role="dropdown"]:hover {
+  border-color: #888; /* Subtle hover effect */
+}
+
+/* Form input adjustments */
+input[type="checkbox"][role="dropdown"],
+input[data-form-role="form-input"] {
+  border-radius: 6px; /* More rounded corners */
+}
+
+/* Focus state */
+input[type="checkbox"][role="dropdown"]:where(:hover, :focus) {
+  transition: 0.5s;
+  outline: none;
+  transform: scale(120%);
+  border-color: #9be9f3; /* Light blue border on focus */
+  border-radius: 10px;
+}
+
+label[for][data-checkbox-label] {
+  border-radius: 8px;
+  background: white;
+}
+@keyframes slow-fill-border {
+  from {
+    background: white;
+  }
+  to {
+    background: linear-gradient(--);
+  }
+}
+label[for][data-checkbox-label]:hover {
+  border-radius: 8px;
+  background: white;
+}
