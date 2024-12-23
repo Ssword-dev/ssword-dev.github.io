@@ -1,6 +1,6 @@
 include config.mk
 
-pushm:
+push:
 	@git commit -m "Makefile Auto-Commit"; \
 	git push origin main;
 
