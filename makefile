@@ -12,5 +12,5 @@ stage:
 
 login:
 	@git init; \
-	git remote add origin $(REPOSITORY_URL);
+	git remote add origin $(REPOSITORY_URL).git;
 
