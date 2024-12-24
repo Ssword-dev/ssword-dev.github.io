@@ -11,13 +11,14 @@ interface BrowserProps {
   strict?: boolean;
 }
 export interface NamespaceBrowser {
-  "auto-config":any
+  "auto-config": any;
   Source: FC<BrowserProps>;
   Renderer: FC<RendererProps>;
   validateSourceChild<T extends ReactNode>(
     child: T,
     map: Map<string, ReactNode>
   ): T | null;
+  processChild(child: ReactNode, map: Map<string, ReactNode>): ReactNode | null;
   prototype: NamespaceBrowser;
 }
 export const Browser: NamespaceBrowser = {
@@ -43,18 +44,21 @@ export const Browser: NamespaceBrowser = {
   Renderer({ children }) {
     return <>{children}</>;
   },
+  processChild(
+    child: ReactNode,
+    map: Map<string, ReactNode>
+  ): ReactNode | null {
+    const validatedChild = Browser.validateSourceChild(child, map);
+    if (validatedChild) {
+      return <>{validatedChild}</>;
+    }
+    return null;
+  },
   Source({ children, strict = Browser["auto-config"]["defaultStrictMode"] }) {
     const map: Map<string, ReactNode> = new Map();
-    const processChild = (child: ReactNode): ReactNode | null => {
-      const validatedChild = Browser.validateSourceChild(child, map);
-      if (validatedChild) {
-        return <>{validatedChild}</>;
-      }
-      return null;
-    };
     if (Array.isArray(children)) {
       for (const child of children) {
-        const result = processChild(child);
+        const result = Browser.processChild(child, map);
         if (result) {
           return result;
         }
@@ -66,7 +70,7 @@ export const Browser: NamespaceBrowser = {
         );
       }
     } else {
-      const result = processChild(children);
+      const result = Browser.processChild(children, map);
       if (result) {
         return result;
       }
